@@ -6,19 +6,42 @@ namespace SetupEnvironment
 {
     internal class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             IWebDriver driver = new ChromeDriver();
             
 
-            driver.Navigate().GoToUrl("http://testing.todorvachev.com/selectors/name/");
+            driver.Navigate().GoToUrl("https://www.saucedemo.com/");
 
-            IWebDriver element = (IWebDriver)driver.FindElement(By.Name(""));
+            IWebElement element = driver.FindElement(By.Id("user-name"));
 
-            Thread.Sleep(5000);
+            if (element.Displayed)
+            {
+                GreenMessage("Yes, I can see the element!!");
+            }
+            else
+            {
+                RedMessage("No");
+            }
+
+            Thread.Sleep(3000);
 
             driver.Quit();
 
+        }
+
+        private static void RedMessage(string message)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(message);
+            Console.ForegroundColor = ConsoleColor.White;
+        }
+
+        private static void GreenMessage(string message)
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine(message);
+            Console.ForegroundColor = ConsoleColor.White;
         }
     }
 }
